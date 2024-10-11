@@ -91,7 +91,7 @@ const Chat = () => {
     ) {
       let subtitle = `${appStateContext.state.isCosmosDBAvailable.status}. Please contact the site administrator.`
       setErrorMsg({
-        title: 'Chat history is not enabled',
+        title: 'Historial del chat no ha sido habilitado',
         subtitle: subtitle
       })
       toggleErrorDialog()
@@ -190,7 +190,7 @@ const Chat = () => {
     } else {
       conversation = appStateContext?.state?.currentChat
       if (!conversation) {
-        console.error('Conversation not found.')
+        console.error('Conversación no fue encontrada.')
         setIsLoading(false)
         setShowLoadingMessage(false)
         abortFuncs.current = abortFuncs.current.filter(a => a !== abortController)
@@ -247,7 +247,7 @@ const Chat = () => {
                 console.error(e)
                 throw e
               } else {
-                console.log('Incomplete message. Continuing...')
+                console.log('Mensaje incompleto. Continua procesando...')
               }
             }
           })
@@ -259,7 +259,7 @@ const Chat = () => {
     } catch (e) {
       if (!abortController.signal.aborted) {
         let errorMessage =
-          'An error occurred. Please try again. If the problem persists, please contact the site administrator.'
+          'Ha ocurrido un error. Favor intenta nuevamente. Si el problema persiste contacta al administrador.'
         if (result.error?.message) {
           errorMessage = result.error.message
         } else if (typeof result.error === 'string') {
@@ -327,7 +327,7 @@ const Chat = () => {
       setMessages(request.messages)
     }
     let result = {} as ChatResponse
-    var errorResponseMessage = 'Please try again. If the problem persists, please contact the site administrator.'
+    var errorResponseMessage = 'Ha ocurrido un error. Favor intenta nuevamente. Si el problema persiste contacta al administrador.'
     try {
       const response = conversationId
         ? await historyGenerate(request, abortController.signal, conversationId)
@@ -339,14 +339,14 @@ const Chat = () => {
         let errorChatMsg: ChatMessage = {
           id: uuid(),
           role: ERROR,
-          content: `There was an error generating a response. Chat history can't be saved at this time. ${errorResponseMessage}`,
+          content: `Hubo un error generando la respuesta. La historia del chat no fue guardada. ${errorResponseMessage}`,
           date: new Date().toISOString()
         }
         let resultConversation
         if (conversationId) {
           resultConversation = appStateContext?.state?.chatHistory?.find(conv => conv.id === conversationId)
           if (!resultConversation) {
-            console.error('Conversation not found.')
+            console.error('Conversación no encontrada.')
             setIsLoading(false)
             setShowLoadingMessage(false)
             abortFuncs.current = abortFuncs.current.filter(a => a !== abortController)
@@ -448,7 +448,7 @@ const Chat = () => {
       }
     } catch (e) {
       if (!abortController.signal.aborted) {
-        let errorMessage = `An error occurred. ${errorResponseMessage}`
+        let errorMessage = `Ocurrió un error. ${errorResponseMessage}`
         if (result.error?.message) {
           errorMessage = result.error.message
         } else if (typeof result.error === 'string') {
@@ -816,7 +816,7 @@ const Chat = () => {
                     <div className={styles.chatMessageGpt}>
                       <Answer
                         answer={{
-                          answer: "Generating answer...",
+                          answer: "Generando respuesta...",
                           citations: [],
                           plotly_data: null
                         }}
@@ -842,7 +842,7 @@ const Chat = () => {
                   onKeyDown={e => (e.key === 'Enter' || e.key === ' ' ? stopGenerating() : null)}>
                   <SquareRegular className={styles.stopGeneratingIcon} aria-hidden="true" />
                   <span className={styles.stopGeneratingText} aria-hidden="true">
-                    Stop generating
+                    Detener la generación
                   </span>
                 </Stack>
               )}
@@ -913,7 +913,7 @@ const Chat = () => {
               </Stack>
               <QuestionInput
                 clearOnSend
-                placeholder="Type a new question..."
+                placeholder="Haz una nueva pregunta..."
                 disabled={isLoading}
                 onSend={(question, id) => {
                   appStateContext?.state.isCosmosDBAvailable?.cosmosDB

@@ -155,36 +155,36 @@ export const Answer = ({ answer, onCitationClicked, onExectResultClicked }: Prop
   const UnhelpfulFeedbackContent = () => {
     return (
       <>
-        <div>Why wasn't this response helpful?</div>
+        <div>¿Qué fue lo que ocurrió mal?</div>
         <Stack tokens={{ childrenGap: 4 }}>
           <Checkbox
-            label="Citations are missing"
+            label="Faltaron las referencias"
             id={Feedback.MissingCitation}
             defaultChecked={negativeFeedbackList.includes(Feedback.MissingCitation)}
             onChange={updateFeedbackList}></Checkbox>
           <Checkbox
-            label="Citations are wrong"
+            label="Las referencias están incorrectas"
             id={Feedback.WrongCitation}
             defaultChecked={negativeFeedbackList.includes(Feedback.WrongCitation)}
             onChange={updateFeedbackList}></Checkbox>
           <Checkbox
-            label="The response is not from my data"
+            label="La respuesta no se basa en el contenido de ATAL"
             id={Feedback.OutOfScope}
             defaultChecked={negativeFeedbackList.includes(Feedback.OutOfScope)}
             onChange={updateFeedbackList}></Checkbox>
           <Checkbox
-            label="Inaccurate or irrelevant"
+            label="La respuesta no es precisa o es irrelevante"
             id={Feedback.InaccurateOrIrrelevant}
             defaultChecked={negativeFeedbackList.includes(Feedback.InaccurateOrIrrelevant)}
             onChange={updateFeedbackList}></Checkbox>
           <Checkbox
-            label="Other"
+            label="Otra"
             id={Feedback.OtherUnhelpful}
             defaultChecked={negativeFeedbackList.includes(Feedback.OtherUnhelpful)}
             onChange={updateFeedbackList}></Checkbox>
         </Stack>
         <div onClick={() => setShowReportInappropriateFeedback(true)} style={{ color: '#115EA3', cursor: 'pointer' }}>
-          Report inappropriate content
+          Reporta contenido inapropiado
         </div>
       </>
     )
@@ -311,7 +311,7 @@ export const Answer = ({ answer, onCitationClicked, onExectResultClicked }: Prop
                     role="button">
                     <span>
                       {parsedAnswer.citations.length > 1
-                        ? parsedAnswer.citations.length + ' references'
+                        ? parsedAnswer.citations.length + ' referencias'
                         : '1 reference'}
                     </span>
                   </Text>
@@ -325,7 +325,7 @@ export const Answer = ({ answer, onCitationClicked, onExectResultClicked }: Prop
             </Stack.Item>
           )}
           <Stack.Item className={styles.answerDisclaimerContainer}>
-            <span className={styles.answerDisclaimer}>AI-generated content may be incorrect</span>
+            <span className={styles.answerDisclaimer}>El contenido generado por la Inteligencia Artificial puede ser incorrecto.</span>
           </Stack.Item>
           {!!answer.exec_results?.length && (
             <Stack.Item onKeyDown={e => (e.key === 'Enter' || e.key === ' ' ? toggleIsRefAccordionOpen() : null)}>
@@ -395,18 +395,18 @@ export const Answer = ({ answer, onCitationClicked, onExectResultClicked }: Prop
           ]
         }}
         dialogContentProps={{
-          title: 'Submit Feedback',
+          title: 'Enviar Retroalimentación',
           showCloseButton: true
         }}>
         <Stack tokens={{ childrenGap: 4 }}>
-          <div>Your feedback will improve this experience.</div>
+          <div>Tu retroalimentación ayudará a mejorar la experiencia</div>
 
           {!showReportInappropriateFeedback ? <UnhelpfulFeedbackContent /> : <ReportInappropriateFeedbackContent />}
 
-          <div>By pressing submit, your feedback will be visible to the application owner.</div>
+          <div>Al hacer clic en Enviar, tu retroalimentación será visible por los administradores de este sitio.</div>
 
           <DefaultButton disabled={negativeFeedbackList.length < 1} onClick={onSubmitNegativeFeedback}>
-            Submit
+            Enviar
           </DefaultButton>
         </Stack>
       </Dialog>
